@@ -4,11 +4,10 @@ import {
   Card,
   CardBody,
   Form,
-  FormInput,
+  Input,
   Button,
   Col,
-  CardHeader,
-  FormSelect
+  CardHeader
 } from "reactstrap";
 import { connect } from "react-redux";
 
@@ -74,7 +73,8 @@ class Edit extends React.Component {
             <h6 className="m-0">category</h6>
           </CardHeader>
           <CardBody className="p-0">
-            <FormSelect
+            <Input
+              type="select"
               onChange={this.onChange}
               name="category"
               size="lg"
@@ -87,14 +87,14 @@ class Edit extends React.Component {
               <option value="Fantasy">Fantasy</option>
               <option value="Sports">Sports</option>
               <option value="Others">Others</option>
-            </FormSelect>
+            </Input>
           </CardBody>
         </Card>
 
         <Card small className="mb-3">
           <CardBody>
             <Form className="add-new-post" onSubmit={this.onSubmit}>
-              <FormInput
+              <Input
                 size="lg"
                 className="mb-3"
                 placeholder="Your Post Title"

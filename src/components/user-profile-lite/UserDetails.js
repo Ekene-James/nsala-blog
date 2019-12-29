@@ -7,7 +7,7 @@ import {
   ListGroupItem,
   ButtonGroup,
   Button
-} from "shards-react";
+} from "reactstrap";
 import FontAwesome from "react-fontawesome";
 
 const UserDetails = ({ userDetails }) => (

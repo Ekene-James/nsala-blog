@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 
-import { Col } from "shards-react";
+import { Col } from "reactstrap";
 
 const PageTitle = ({ title, subtitle, className, ...attrs }) => {
   const classes = classNames(

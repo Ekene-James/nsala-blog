@@ -9,7 +9,7 @@ import {
   Col,
   CardHeader,
   FormSelect
-} from "shards-react";
+} from "reactstrap";
 import { connect } from "react-redux";
 
 import { postBlog } from "../../redux/actions/blogPostActions";

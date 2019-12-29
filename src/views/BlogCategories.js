@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import { Container, Row } from "shards-react";
-import { UncontrolledCarousel } from "reactstrap";
+import { UncontrolledCarousel, Container, Row } from "reactstrap";
 
 export class BlogCategories extends Component {
   render() {

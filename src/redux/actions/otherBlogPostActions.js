@@ -11,6 +11,7 @@ export const isLoading = () => {
 
 export const getSearch = (search, history) => dispatch => {
   dispatch(isLoading());
+
   const smallLetter = search.toLowerCase();
   const seperate = smallLetter.split(" ");
   return firestore
@@ -18,7 +19,7 @@ export const getSearch = (search, history) => dispatch => {
     .where("keywords", "array-contains-any", seperate)
     .get()
     .then(snapshot => {
-      // Get the last document
+      // Get the last document is
 
       const stuffs = snapshot.docs.map(doc => {
         const data = doc.data();

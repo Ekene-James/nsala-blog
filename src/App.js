@@ -16,6 +16,7 @@ import AddNewPost from "./views/AddNewPost";
 
 import SideBar from "./views/SideBar";
 import Spin from "./views/Spinner";
+import withTracker from "./withTracker";
 
 const BlogPosts = lazy(() => import("./views/BlogPosts"));
 const SingleBlogPost = lazy(() => import("./views/SingleBlogPost"));
@@ -34,14 +35,23 @@ export class App extends Component {
             <Col sm="12" md="9">
               <Switch>
                 <Suspense fallback={<Spin />}>
-                  <Route exact path="/" component={BlogPosts} />
-                  <Route path="/category/:catName" component={Category} />
+                  <Route exact path="/" component={withTracker(BlogPosts)} />
+                  <Route
+                    path="/category/:catName"
+                    component={withTracker(Category)}
+                  />
                   <Route
                     path="/user-profile-lite"
-                    component={UserProfileLite}
+                    component={withTracker(UserProfileLite)}
                   />
-                  <Route path="/blog/:blogId" component={SingleBlogPost} />
-                  <Route path="/search/:searchItem" component={SearchCompo} />
+                  <Route
+                    path="/blog/:blogId"
+                    component={withTracker(SingleBlogPost)}
+                  />
+                  <Route
+                    path="/search/:searchItem"
+                    component={withTracker(SearchCompo)}
+                  />
                 </Suspense>
 
                 <Route path="/add-new-post" component={AddNewPost} />
@@ -61,4 +71,4 @@ export class App extends Component {
 }
 
 export default App;
-//basename={process.env.REACT_APP_BASENAME || ""}
+//basename={process.env.REACT_APP_BASENAME || ""} UA-155170048-1

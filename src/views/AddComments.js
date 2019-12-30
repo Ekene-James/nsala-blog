@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { Button, Spinner } from "reactstrap";
 import { connect } from "react-redux";
+
 import { addComment } from "../redux/actions/blogPostActions";
 export class AddComments extends Component {
   constructor(props) {

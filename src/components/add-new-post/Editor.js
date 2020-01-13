@@ -68,7 +68,7 @@ class Edit extends React.Component {
             <input type="file" onChange={this.handleImageChange} />
           </form>
         </Col>
-        <Card small className="mb-3">
+        <Card className="mb-3">
           <CardHeader className="border-bottom">
             <h6 className="m-0">category</h6>
           </CardHeader>

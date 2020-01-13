@@ -19,12 +19,29 @@ import {
   selectSingleBlogPost,
   selectRelatedBlogs
 } from "../utils/reselectFuncs/blogReselectFunc";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import {
+  faFacebook,
+  faTwitter,
+  faLinkedin,
+  faWhatsapp
+} from "@fortawesome/free-brands-svg-icons";
 
 export class SingleBlogPost extends Component {
   componentDidMount() {
-    this.props.getSinglePost(this.props.match.params.blogId);
+    if (this.props.singleBlogPost === null) {
+      console.log("single is running ooo");
+      return this.props.getSinglePost(
+        this.props.match.params.blogId,
+        this.props.history
+      );
+    }
+    return;
   }
-
+  shareButton = link => {
+    return window.open(link, "_blanck");
+  };
   render() {
     const blogId = this.props.match.params.blogId;
     const {
@@ -120,9 +137,47 @@ export class SingleBlogPost extends Component {
         <Col className="mt-4">
           <HoriRuleWithTopButton buttonText={"Add Blogger On Socials"} />
           <ButtonGroup className="mr-auto">
-            <Button theme="primary">Facebook </Button>
-            <Button theme="secondary">Twitter</Button>
-            <Button theme="dark">Instagram</Button>
+            <Button
+              onClick={this.shareButton.bind(
+                this,
+                `https://facebook.com/sharer.php?u=[${this.props.match.url}]`
+              )}
+              color="primary"
+            >
+              <FontAwesomeIcon icon={faFacebook} /> Facebook{" "}
+            </Button>
+            <Button
+              onClick={this.shareButton.bind(
+                this,
+                `https://twitter.com/share?url[${
+                  this.props.match.url
+                }]&text=[${title}]&via[via]&hashtags=[hashtags]`
+              )}
+              color="info"
+            >
+              <FontAwesomeIcon icon={faTwitter} />
+              Twitter
+            </Button>
+            <Button
+              onClick={this.shareButton.bind(
+                this,
+                `https://www.linkedin.com/shareArticle?url=[${
+                  this.props.match.url
+                }]&title=[${title}]`
+              )}
+              color="dark"
+            >
+              <FontAwesomeIcon icon={faLinkedin} /> Linkedln
+            </Button>
+            <Button
+              onClick={this.shareButton.bind(
+                this,
+                `https://wa.me/?text=[${title}][${this.props.match.url}]`
+              )}
+              color="success"
+            >
+              <FontAwesomeIcon icon={faWhatsapp} /> Watsapp
+            </Button>
           </ButtonGroup>
         </Col>
 

@@ -18,6 +18,9 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+import "./navbar.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome, faUser, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import { getCategory, getSearch } from "../redux/actions/otherBlogPostActions";
 
@@ -53,6 +56,7 @@ class MainNavbar extends React.Component {
     });
   }
   onClick = category => {
+    window.scroll({ top: 0, left: 0, behavior: "smooth" });
     this.props.getCategory(category, this.props.history);
   };
   onChange = e => {
@@ -73,20 +77,25 @@ class MainNavbar extends React.Component {
   render() {
     return (
       <Navbar full sticky={"top"} dark color="dark" expand="md">
-        <NavbarBrand className="text-white">My Blog</NavbarBrand>
+        <NavbarBrand className="text-white">BlogTonic</NavbarBrand>
         <NavbarToggler onClick={this.toggleNavbar} />
 
         <Collapse isOpen={this.state.collapseOpen} navbar>
           <Nav navbar>
             <NavItem>
               <Link active to="/">
-                <NavLink> Home</NavLink>
+                <NavLink>
+                  <FontAwesomeIcon icon={faHome} /> Home
+                </NavLink>
               </Link>
             </NavItem>
 
             <NavItem>
               <Link to="/user-profile-lite">
-                <NavLink> User Profile</NavLink>
+                <NavLink>
+                  {" "}
+                  <FontAwesomeIcon icon={faUser} /> User Profile
+                </NavLink>
               </Link>
             </NavItem>
             <NavItem>
@@ -140,7 +149,9 @@ class MainNavbar extends React.Component {
                 />
 
                 <InputGroupAddon addonType="append">
-                  <Button onClick={this.onSubmit}>Search</Button>
+                  <Button onClick={this.onSubmit}>
+                    <FontAwesomeIcon icon={faSearch} /> Search
+                  </Button>
                 </InputGroupAddon>
               </InputGroup>
             </form>

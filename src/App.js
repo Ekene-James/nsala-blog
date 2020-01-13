@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./shards-dashboards.1.1.0.min.css";
 import WelcomeTop from "./views/WelcomeTop";
+import "./App.css";
 
 import MainNavbar from "./views/Navbar";
 
@@ -52,9 +53,8 @@ export class App extends Component {
                     path="/search/:searchItem"
                     component={withTracker(SearchCompo)}
                   />
+                  <Route path="/add-new-post" component={AddNewPost} />
                 </Suspense>
-
-                <Route path="/add-new-post" component={AddNewPost} />
               </Switch>
             </Col>
 

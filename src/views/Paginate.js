@@ -15,6 +15,8 @@ import {
   selectCounter,
   selectButtonloading
 } from "../utils/reselectFuncs/blogReselectFunc";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 export class Paginate extends Component {
   onNext = () => {
@@ -23,9 +25,11 @@ export class Paginate extends Component {
       console.log("clicked on nextCat");
       this.props.nextCategory(catName);
       this.props.addCounter();
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
     }
     this.props.nextQuery();
     this.props.addCounter();
+    window.scroll({ top: 0, left: 0, behavior: "smooth" });
   };
   onPrevious = () => {
     const { catName, catTrue } = this.props;
@@ -33,9 +37,11 @@ export class Paginate extends Component {
       this.props.reduceCounter();
 
       this.props.previousCategory(catName);
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
     }
     this.props.reduceCounter();
     this.props.previousQuery();
+    window.scroll({ top: 0, left: 0, behavior: "smooth" });
   };
 
   render() {
@@ -47,21 +53,27 @@ export class Paginate extends Component {
     return (
       <ButtonGroup>
         {counter === 0 || Buttonloading ? (
-          <Button theme="primary" disabled>
-            Previous{" "}
+          <Button color="secondary" disabled>
+            <FontAwesomeIcon icon={faArrowLeft} />
+            {"   "}
+            Previous
           </Button>
         ) : (
-          <Button onClick={this.onPrevious} theme="primary">
-            Previous{" "}
+          <Button onClick={this.onPrevious} color="secondary">
+            <FontAwesomeIcon icon={faArrowLeft} />
+            {"   "}
+            Previous
           </Button>
         )}
         {counter + 1 === arithematics || Buttonloading ? (
-          <Button theme="secondary" disabled>
-            Next
+          <Button color="primary" disabled>
+            Next {"   "}
+            <FontAwesomeIcon icon={faArrowRight} />
           </Button>
         ) : (
-          <Button onClick={this.onNext} theme="secondary">
-            Next
+          <Button onClick={this.onNext} color="primary">
+            Next {"   "}
+            <FontAwesomeIcon icon={faArrowRight} />
           </Button>
         )}
       </ButtonGroup>

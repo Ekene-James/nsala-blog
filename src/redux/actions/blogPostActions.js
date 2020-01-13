@@ -97,7 +97,8 @@ export const getSidebar = () => dispatch => {
           title,
           bloggerID,
           bloggerProfileImgUrl,
-          creatAt
+          creatAt,
+          totalComments
         } = data;
         const id = doc.id;
 
@@ -108,7 +109,8 @@ export const getSidebar = () => dispatch => {
           bloggerProfileImgUrl,
           creatAt: creatAt.seconds,
           title,
-          BlogImgUrl
+          BlogImgUrl,
+          totalComments
         };
       });
 
@@ -189,7 +191,8 @@ export const getAllBlogs = () => dispatch => {
 };
 
 export const nextQuery = () => dispatch => {
-  firestore
+  dispatch(isLoading());
+ return firestore
     .collection("blogMeta")
     .orderBy("creatAt", "desc")
     .startAfter(last.data().creatAt)
@@ -235,7 +238,8 @@ export const nextQuery = () => dispatch => {
 };
 
 export const previousQuery = () => dispatch => {
-  firestore
+  dispatch(isLoading());
+ return firestore
     .collection("blogMeta")
     .orderBy("creatAt", "asc")
     .startAfter(first.data().creatAt)
@@ -281,9 +285,10 @@ export const previousQuery = () => dispatch => {
     });
 };
 
-export const getSinglePost = id => dispatch => {
+export const getSinglePost = (id, history) => dispatch => {
   dispatch(isLoading());
   let keyword;
+  history.push(`/blog/${id}`)
   return firestore
     .collection("blogPosts")
     .doc(`${id}`)
@@ -301,7 +306,8 @@ export const getSinglePost = id => dispatch => {
           bloggerID,
           bloggerProfileImgUrl,
           creatAt,
-          text
+          text,
+          totalComments
         } = data;
         const id = doc.id;
 
@@ -313,7 +319,8 @@ export const getSinglePost = id => dispatch => {
           creatAt: creatAt.seconds,
           title,
           BlogImgUrl,
-          text
+          text,
+          totalComments
         };
 
         const smallLetter = data.title.toLowerCase();
@@ -407,6 +414,11 @@ export const addComment = (data, id) => dispatch => {
       const userRef = firestore.collection("blogPosts").doc(id);
       const increaseBy = firebase.firestore.FieldValue.increment(1);
       userRef.update({ totalComments: increaseBy });
+    })
+    .then(() => {
+      const blogMetaRef = firestore.collection("blogMeta").doc(id);
+      const increaseBy = firebase.firestore.FieldValue.increment(1);
+      blogMetaRef.update({ totalComments: increaseBy });
     })
     .then(() => {
       const comment = { ...data, creatAt: Date.now() };

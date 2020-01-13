@@ -1,0 +1,11 @@
+.caption {
+  font-family: "Tangerine", serif;
+  font-size: 100px;
+  text-shadow: 4px 4px 4px #8e44ad;
+}
+
+@media only screen and (max-width: 768px) {
+  [class*="caption"] {
+    font-size: 70px;
+  }
+}

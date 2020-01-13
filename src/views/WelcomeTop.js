@@ -1,5 +1,6 @@
 import React from "react";
 import { Container } from "reactstrap";
+import "./welcomeTop.css";
 
 function WelcomeTop() {
   return (
@@ -13,7 +14,7 @@ function WelcomeTop() {
         paddingTop: "40px"
       }}
     >
-      <h1 className="text-white">Welcome to Nsala Blog</h1>
+      <h1 className="text-white caption">Welcome to BlogTonic</h1>
     </Container>
   );
 }

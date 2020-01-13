@@ -21,6 +21,7 @@ export class SideBar extends Component {
   }
   render() {
     const { sideBarData } = this.props;
+    let small = true;
 
     return (
       <Container
@@ -34,7 +35,7 @@ export class SideBar extends Component {
           {" "}
           <PageTitle
             sm="4"
-            title="Old Posts"
+            title="Featured Posts"
             subtitle="Blogs"
             className="text-sm-center text-white mb-3"
           />
@@ -47,14 +48,14 @@ export class SideBar extends Component {
               return (
                 <Col
                   key={idx}
-                  className="mb-3"
+                  className="d-flex justify-content-center mb-3"
                   sm={{ size: "auto" }}
                   md={{ size: "auto" }}
                   lg={{ size: "auto" }}
                 >
                   <Fade bottom>
                     {" "}
-                    <CardComponent post={post} />
+                    <CardComponent small={small} post={post} />
                   </Fade>
                 </Col>
               );

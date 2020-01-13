@@ -6,11 +6,14 @@ import {
   CardHeader,
   CardTitle,
   CardImg,
-  Badge
+  Button
 } from "reactstrap";
-import { Link } from "react-router-dom";
+
+import { getSinglePost } from "../redux/actions/blogPostActions";
 import Pulse from "react-reveal/Pulse";
 import Moment from "react-moment";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 export class CardComponent extends React.Component {
   constructor() {
@@ -40,26 +43,39 @@ export class CardComponent extends React.Component {
       <Card style={{ maxWidth: "300px" }}>
         <CardHeader>{category}</CardHeader>
         <Pulse when={this.state.zoom}>
-          <CardImg
-            className="img-fluid"
-            onMouseEnter={this.onHover}
-            src={BlogImgUrl}
-          />
+          {small ? (
+            <CardImg
+              style={{ maxHeight: "160px" }}
+              className="img-fluid"
+              onMouseEnter={this.onHover}
+              src={BlogImgUrl}
+            />
+          ) : (
+            <CardImg
+              style={{ maxHeight: "250px" }}
+              className="img-fluid"
+              onMouseEnter={this.onHover}
+              src={BlogImgUrl}
+            />
+          )}
         </Pulse>
 
         <CardBody>
           <CardTitle>{title}</CardTitle>
+          <Button
+            style={{
+              backgroundColor: "#8e44ad",
+              borderColor: "white"
+            }}
+            onClick={() => {
+              this.props.getSinglePost(id, this.props.history);
 
-          <Link to={`/blog/${id}`}>
-            <Badge
-              style={{
-                backgroundColor: "#8e44ad",
-                borderColor: "white"
-              }}
-            >
-              Read more &rarr;
-            </Badge>
-          </Link>
+              window.scroll({ top: 0, left: 0, behavior: "smooth" });
+            }}
+          >
+            {" "}
+            Read more &rarr;
+          </Button>
         </CardBody>
         {small ? null : (
           <CardFooter>
@@ -86,4 +102,7 @@ export class CardComponent extends React.Component {
   }
 }
 
-export default CardComponent;
+export default connect(
+  null,
+  { getSinglePost }
+)(withRouter(CardComponent));

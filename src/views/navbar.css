@@ -1,0 +1,17 @@
+.dropdown-item:hover,
+.dropdown-item:active,
+.dropdown-item:visited {
+  background-color: #9e4fc0 !important;
+  color: white;
+  border-color: none !important;
+}
+.dropdown-item {
+  color: rgb(226, 222, 215);
+}
+.dropdown-menu {
+  background-color: #8e44ad !important;
+}
+
+a:hover {
+  text-decoration: none !important;
+}

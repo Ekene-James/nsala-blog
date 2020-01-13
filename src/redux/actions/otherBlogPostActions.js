@@ -1,4 +1,4 @@
-import { firestore, storage } from "../../utils/firebase";
+import { firestore } from "../../utils/firebase";
 import { GET_CATEGORY, IS_LOADING, GET_SEARCH } from "../type";
 import { getBlogTotal, buttonLoading, buttonSuccess } from "./blogPostActions";
 let last;

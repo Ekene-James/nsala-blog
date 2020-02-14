@@ -54,7 +54,7 @@ export class SingleBlogPost extends Component {
     const {
       category,
       title,
-      bloggerID,
+      bloggerId,
       bloggerProfileImgUrl,
       creatAt,
       text,
@@ -101,7 +101,7 @@ export class SingleBlogPost extends Component {
           <Col>
             <div className="card-post__author d-flex">
               <Link
-                to={`/profile/${bloggerID}`}
+                to={`/profile/${bloggerId}`}
                 className="card-post__author-avatar card-post__author-avatar--small"
                 style={{
                   backgroundImage: `url(${bloggerProfileImgUrl})`

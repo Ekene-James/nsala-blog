@@ -22,6 +22,7 @@ import { withRouter } from "react-router-dom";
 
 class UserDetails extends React.Component {
   componentDidMount() {
+    window.scroll({ top: 0, left: 0, behavior: "smooth" });
     this.props.getProfileInfo(this.props.match.params.uid);
   }
   follow = link => {

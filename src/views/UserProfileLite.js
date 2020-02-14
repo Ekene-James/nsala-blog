@@ -8,7 +8,7 @@ const UserProfileLite = () => (
   <Container fluid className="main-content-container px-4">
     <Row className="page-header py-4">
       <PageTitle
-        title="User Profile"
+        title="Blogger Profile"
         subtitle="Overview"
         md="12"
         className="ml-sm-auto mr-sm-auto"

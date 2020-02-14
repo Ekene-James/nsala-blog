@@ -60,16 +60,6 @@ function Category(props) {
           <Paginate blogTotal={catTotal} catName={catName} catTrue={catTrue} />
         </Col>
       </Row>
-      <Row className="mb-4">
-        <Col>
-          <strong className="text-muted d-block mb-2">Follow Us On</strong>
-          <ButtonGroup>
-            <Button theme="primary">Facebook </Button>
-            <Button theme="secondary">Twitter</Button>
-            <Button theme="dark">Instagram</Button>
-          </ButtonGroup>
-        </Col>
-      </Row>
     </Container>
   );
 }
@@ -80,7 +70,4 @@ const mapStateToProps = state => ({
   blogTotal: selectBlogTotal(state)
 });
 
-export default connect(
-  mapStateToProps,
-  { getCategory }
-)(Category);
+export default connect(mapStateToProps, { getCategory })(Category);

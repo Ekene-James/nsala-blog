@@ -33,10 +33,11 @@ export class CardComponent extends React.Component {
       category,
       BlogImgUrl,
       title,
-      bloggerID,
+      bloggerId,
       bloggerProfileImgUrl,
       creatAt,
-      id
+      id,
+      name
     } = post;
 
     return (
@@ -81,13 +82,13 @@ export class CardComponent extends React.Component {
           <CardFooter>
             <div className="card-post__author d-flex">
               <a
-                href={`/profile/${bloggerID}`}
+                href={`/profile/${bloggerId}`}
                 className="card-post__author-avatar card-post__author-avatar--small"
                 style={{
-                  backgroundImage: `src=${bloggerProfileImgUrl}`
+                  backgroundImage: `url(${bloggerProfileImgUrl})`
                 }}
-              />{" "}
-              Written by Anna Ken
+              ></a>
+              Written by {name}
             </div>
             <Moment
               className="text-muted ml-auto"
@@ -102,7 +103,4 @@ export class CardComponent extends React.Component {
   }
 }
 
-export default connect(
-  null,
-  { getSinglePost }
-)(withRouter(CardComponent));
+export default connect(null, { getSinglePost })(withRouter(CardComponent));

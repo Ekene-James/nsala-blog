@@ -9,3 +9,9 @@
     font-size: 70px;
   }
 }
+
+@media only screen and (max-width: 550px) {
+  [class*="caption"] {
+    font-size: 40px;
+  }
+}

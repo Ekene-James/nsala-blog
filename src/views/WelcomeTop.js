@@ -14,7 +14,7 @@ function WelcomeTop() {
         paddingTop: "40px"
       }}
     >
-      <h1 className="text-white caption">Welcome to BlogTonic</h1>
+      <h1 className="text-white caption">Welcome to Nsala Blog</h1>
     </Container>
   );
 }

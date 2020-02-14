@@ -14,3 +14,6 @@ export const REDUCE_COUNTER = "REDUCE_COUNTER";
 export const GET_SEARCH = "GET_SEARCH";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const GET_RELATED_BLOGS = "GET_RELATED_BLOGS";
+
+export const GET_PROFILE_INFO = "GET_PROFILE_INFO";
+export const ERRORS = "ERRORS";

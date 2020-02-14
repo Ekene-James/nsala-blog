@@ -59,14 +59,14 @@ export class Paginate extends Component {
             Previous
           </Button>
         ) : (
-          <Button onClick={this.onPrevious} color="secondary">
+          <Button onClick={this.onPrevious} color="success">
             <FontAwesomeIcon icon={faArrowLeft} />
             {"   "}
             Previous
           </Button>
         )}
         {counter + 1 === arithematics || Buttonloading ? (
-          <Button color="primary" disabled>
+          <Button color="secondary" disabled>
             Next {"   "}
             <FontAwesomeIcon icon={faArrowRight} />
           </Button>

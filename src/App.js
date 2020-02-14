@@ -13,8 +13,6 @@ import MainNavbar from "./views/Navbar";
 import MainFooter from "./views/MainFooter";
 import { Container, Row, Col } from "reactstrap";
 
-import AddNewPost from "./views/AddNewPost";
-
 import SideBar from "./views/SideBar";
 import Spin from "./views/Spinner";
 import withTracker from "./withTracker";
@@ -42,7 +40,7 @@ export class App extends Component {
                     component={withTracker(Category)}
                   />
                   <Route
-                    path="/user-profile-lite"
+                    path="/profile/:uid"
                     component={withTracker(UserProfileLite)}
                   />
                   <Route
@@ -53,7 +51,6 @@ export class App extends Component {
                     path="/search/:searchItem"
                     component={withTracker(SearchCompo)}
                   />
-                  <Route path="/add-new-post" component={AddNewPost} />
                 </Suspense>
               </Switch>
             </Col>

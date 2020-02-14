@@ -1,5 +1,11 @@
 import { firestore } from "../../utils/firebase";
-import { GET_CATEGORY, IS_LOADING, GET_SEARCH } from "../type";
+import {
+  GET_CATEGORY,
+  IS_LOADING,
+  GET_SEARCH,
+  ERRORS,
+  GET_PROFILE_INFO
+} from "../type";
 import { getBlogTotal, buttonLoading, buttonSuccess } from "./blogPostActions";
 let last;
 let first;
@@ -27,20 +33,23 @@ export const getSearch = (search, history) => dispatch => {
           category,
           BlogImgUrl,
           title,
-          bloggerID,
+          bloggerId,
           bloggerProfileImgUrl,
-          creatAt
+          creatAt,
+          name
         } = data;
         const id = doc.id;
 
         return {
           id,
           category,
-          bloggerID,
+          bloggerId,
           bloggerProfileImgUrl,
           creatAt: creatAt.seconds,
           title,
-          BlogImgUrl
+          BlogImgUrl,
+          search,
+          name
         };
       });
 
@@ -49,7 +58,7 @@ export const getSearch = (search, history) => dispatch => {
         payload: stuffs
       });
     })
-    .then(() => history.push(`/search/${seperate}`))
+    .then(() => history.push(`/search/${search}`))
     .catch(err => {
       console.log("Error getting documents", err);
     });
@@ -75,20 +84,22 @@ export const getCategory = (category, history) => dispatch => {
           category,
           BlogImgUrl,
           title,
-          bloggerID,
+          bloggerId,
           bloggerProfileImgUrl,
-          creatAt
+          creatAt,
+          name
         } = data;
         const id = doc.id;
 
         return {
           id,
           category,
-          bloggerID,
+          bloggerId,
           bloggerProfileImgUrl,
           creatAt: creatAt.seconds,
           title,
-          BlogImgUrl
+          BlogImgUrl,
+          name
         };
       });
 
@@ -124,20 +135,22 @@ export const nextCategory = category => dispatch => {
           category,
           BlogImgUrl,
           title,
-          bloggerID,
+          bloggerId,
           bloggerProfileImgUrl,
-          creatAt
+          creatAt,
+          name
         } = data;
         const id = doc.id;
 
         return {
           id,
           category,
-          bloggerID,
+          bloggerId,
           bloggerProfileImgUrl,
           creatAt: creatAt.seconds,
           title,
-          BlogImgUrl
+          BlogImgUrl,
+          name
         };
       });
 
@@ -172,20 +185,22 @@ export const previousCategory = category => dispatch => {
             category,
             BlogImgUrl,
             title,
-            bloggerID,
+            bloggerId,
             bloggerProfileImgUrl,
-            creatAt
+            creatAt,
+            name
           } = data;
           const id = doc.id;
 
           return {
             id,
             category,
-            bloggerID,
+            bloggerId,
             bloggerProfileImgUrl,
             creatAt: creatAt.seconds,
             title,
-            BlogImgUrl
+            BlogImgUrl,
+            name
           };
         })
         .sort((a, b) => b.creatAt - a.creatAt);
@@ -196,6 +211,26 @@ export const previousCategory = category => dispatch => {
       });
     })
     .then(() => dispatch(buttonSuccess()))
+    .catch(err => {
+      console.log("Error getting documents", err);
+    });
+};
+export const getProfileInfo = id => dispatch => {
+  dispatch(isLoading());
+  firestore
+    .collection("users")
+    .doc(id)
+    .get()
+    .then(doc => {
+      if (!doc.exists) {
+        console.log("No such document!");
+      } else {
+        dispatch({
+          type: GET_PROFILE_INFO,
+          payload: doc.data()
+        });
+      }
+    })
     .catch(err => {
       console.log("Error getting documents", err);
     });

@@ -58,6 +58,12 @@ class MainNavbar extends React.Component {
   onClick = category => {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
     this.props.getCategory(category, this.props.history);
+    if (this.state.collapseOpen) {
+      this.setState({
+        ...this.state,
+        collapseOpen: !this.state.collapseOpen
+      });
+    }
   };
   onChange = e => {
     this.setState({
@@ -67,40 +73,42 @@ class MainNavbar extends React.Component {
   onSearch = e => {
     e.preventDefault();
     this.props.getSearch(this.state.search, this.props.history);
-
-    this.setState({
-      ...this.state,
-      search: ""
-    });
+    if (this.state.collapseOpen) {
+      this.setState({
+        ...this.state,
+        search: "",
+        collapseOpen: !this.state.collapseOpen
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        search: ""
+      });
+    }
+  };
+  toggleHome = () => {
+    if (this.state.collapseOpen) {
+      this.setState({
+        ...this.state,
+        collapseOpen: !this.state.collapseOpen
+      });
+    }
+    return;
   };
 
   render() {
     return (
       <Navbar full sticky={"top"} dark color="dark" expand="md">
-        <NavbarBrand className="text-white">BlogTonic</NavbarBrand>
+        <NavbarBrand className="text-white">Nsala Blog</NavbarBrand>
         <NavbarToggler onClick={this.toggleNavbar} />
 
         <Collapse isOpen={this.state.collapseOpen} navbar>
           <Nav navbar>
-            <NavItem>
+            <NavItem onClick={this.toggleHome}>
               <Link active to="/">
                 <NavLink>
                   <FontAwesomeIcon icon={faHome} /> Home
                 </NavLink>
-              </Link>
-            </NavItem>
-
-            <NavItem>
-              <Link to="/user-profile-lite">
-                <NavLink>
-                  {" "}
-                  <FontAwesomeIcon icon={faUser} /> User Profile
-                </NavLink>
-              </Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/add-new-post">
-                <NavLink> Add Blog</NavLink>
               </Link>
             </NavItem>
 
@@ -162,7 +170,6 @@ class MainNavbar extends React.Component {
   }
 }
 
-export default connect(
-  null,
-  { getCategory, getSearch }
-)(withRouter(MainNavbar));
+export default connect(null, { getCategory, getSearch })(
+  withRouter(MainNavbar)
+);

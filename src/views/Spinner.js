@@ -3,10 +3,8 @@ import { Spinner, Container } from "reactstrap";
 
 function Spin() {
   return (
-    <Container
-      className="d-flex justify-content-center align-items-center my-4 py-4 "
-      style={{ marginTop: "200px", marginDown: "400px" }}
-    >
+    <Container className="d-flex justify-content-center align-items-center my-4 py-4 ">
+      <div style={{ marginTop: "300px" }} />
       <Spinner animation="border" variant="primary" />
     </Container>
   );

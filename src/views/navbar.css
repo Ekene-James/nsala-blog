@@ -2,7 +2,7 @@
 .dropdown-item:active,
 .dropdown-item:visited {
   background-color: #9e4fc0 !important;
-  color: white;
+  color: white !important;
   border-color: none !important;
 }
 .dropdown-item {

@@ -12,7 +12,8 @@ import {
   GET_CATEGORY,
   GET_SEARCH,
   ADD_COMMENT,
-  GET_RELATED_BLOGS
+  GET_RELATED_BLOGS,
+  GET_PROFILE_INFO
 } from "../../type";
 
 const initialState = {
@@ -27,7 +28,8 @@ const initialState = {
   category: [],
   search: [],
   relatedBlogs: [],
-  counter: 0
+  counter: 0,
+  user: ""
 };
 const blogReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -35,6 +37,13 @@ const blogReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true
+      };
+    }
+    case GET_PROFILE_INFO: {
+      return {
+        ...state,
+        user: action.payload,
+        loading: false
       };
     }
     case ADD_COUNTER: {

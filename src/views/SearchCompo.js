@@ -9,19 +9,22 @@ import {
   selectLoading
 } from "../utils/reselectFuncs/blogReselectFunc";
 
-function SearchCompo({ search, loading }) {
+function SearchCompo({ search, loading, match }) {
   if (loading || search === null) {
     return <Spin />;
   }
   return (
     <Container>
       {search.length === 0 ? (
-        <h4>Found No Result For This Search</h4>
+        <div style={{ marginTop: "90px", marginBottom: "200px" }}>
+          <h4>Found No Result For This Search</h4>
+        </div>
       ) : (
         <div>
           <Row>
             <Col className="page-header py-4">
-              <h4>{`Found ${search.length} Result(s)`}</h4>
+              <h4>{`Found ${search.length} Result(s) For Your Search : `}</h4>
+              <h5>{match.params.searchItem}</h5>
             </Col>{" "}
           </Row>
           <Row>

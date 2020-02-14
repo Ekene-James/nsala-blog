@@ -16,66 +16,7 @@ import firebase, { firestore, storage } from "../../utils/firebase";
 let last;
 let first;
 
-export const postBlog = blog => dispatch => {
-  var file = blog.file;
-  var storageRef = storage.ref();
-  let imageUrl;
 
-  // Create the file metadata
-  var metadata = {
-    contentType: "image/jpeg"
-  };
-
-  // Upload file and metadata to the object 'images/mountains.jpg'
-  var uploadTask = storageRef
-    .child("blogDisplayPix/" + file.name)
-    .put(file, metadata);
-  uploadTask.snapshot.ref
-    .getDownloadURL()
-    .then(downloadURL => {
-      imageUrl = downloadURL;
-      return firestore.collection(`blogPosts`).add({
-        category: blog.category,
-        title: blog.title,
-        text: blog.text,
-        imgUrl: downloadURL,
-        bloggerID: 1,
-        creatAt: Date.now(),
-        totalComments: 0
-      });
-    })
-    .then(ref => {
-      const smallLetter = blog.title.toLowerCase();
-      const seperate = smallLetter.split(" ");
-      const data = {
-        category: blog.category,
-        title: blog.title,
-
-        BlogImgUrl: imageUrl,
-        bloggerID: 1,
-        bloggerProfileImgUrl: "/image/url/notin.com",
-        creatAt: Date.now(),
-        keywords: seperate,
-        totalComments: 0
-      };
-      console.log("blogPosts cat ve bin created wit id :", ref.id);
-      return firestore
-        .collection(`blogMeta`)
-        .doc(ref.id)
-        .set(data);
-    })
-    .then(ref => {
-      const userRef = firestore
-        .collection("blogTotal")
-        .doc("eachCategoryTotal");
-      const increaseBy = firebase.firestore.FieldValue.increment(1);
-      userRef.update({ totalBlogs: increaseBy });
-      userRef.update({ [blog.category]: increaseBy });
-    })
-    .catch(error => {
-      console.error("Error adding document : ", error);
-    });
-};
 export const isLoading = () => {
   return {
     type: IS_LOADING
@@ -95,22 +36,24 @@ export const getSidebar = () => dispatch => {
           category,
           BlogImgUrl,
           title,
-          bloggerID,
+          bloggerId,
           bloggerProfileImgUrl,
           creatAt,
-          totalComments
+          totalComments,
+          name
         } = data;
         const id = doc.id;
 
         return {
           id,
           category,
-          bloggerID,
+          bloggerId,
           bloggerProfileImgUrl,
           creatAt: creatAt.seconds,
           title,
           BlogImgUrl,
-          totalComments
+          totalComments,
+          name
         };
       });
 
@@ -163,20 +106,22 @@ export const getAllBlogs = () => dispatch => {
           category,
           BlogImgUrl,
           title,
-          bloggerID,
+          bloggerId,
           bloggerProfileImgUrl,
-          creatAt
+          creatAt,
+          name
         } = data;
         const id = doc.id;
 
         return {
           id,
           category,
-          bloggerID,
+          bloggerId,
           bloggerProfileImgUrl,
           creatAt: creatAt.seconds,
           title,
-          BlogImgUrl
+          BlogImgUrl,
+          name
         };
       });
 
@@ -210,20 +155,22 @@ export const nextQuery = () => dispatch => {
           category,
           BlogImgUrl,
           title,
-          bloggerID,
+          bloggerId,
           bloggerProfileImgUrl,
-          creatAt
+          creatAt,
+          name
         } = data;
         const id = doc.id;
 
         return {
           id,
           category,
-          bloggerID,
+          bloggerId,
           bloggerProfileImgUrl,
           creatAt: creatAt.seconds,
           title,
-          BlogImgUrl
+          BlogImgUrl,
+          name
         };
       });
 
@@ -257,20 +204,22 @@ export const previousQuery = () => dispatch => {
             category,
             BlogImgUrl,
             title,
-            bloggerID,
+            bloggerId,
             bloggerProfileImgUrl,
-            creatAt
+            creatAt,
+            name
           } = data;
           const id = doc.id;
 
           return {
             id,
             category,
-            bloggerID,
+            bloggerId,
             bloggerProfileImgUrl,
             creatAt: creatAt.seconds,
             title,
-            BlogImgUrl
+            BlogImgUrl,
+            name
           };
         })
         .sort((a, b) => b.creatAt - a.creatAt);
@@ -303,24 +252,26 @@ export const getSinglePost = (id, history) => dispatch => {
           category,
           BlogImgUrl,
           title,
-          bloggerID,
+          bloggerId,
           bloggerProfileImgUrl,
           creatAt,
           text,
-          totalComments
+          totalComments,
+          name
         } = data;
         const id = doc.id;
 
         const datum = {
           id,
           category,
-          bloggerID,
+          bloggerId,
           bloggerProfileImgUrl,
           creatAt: creatAt.seconds,
           title,
           BlogImgUrl,
           text,
-          totalComments
+          totalComments,
+          name
         };
 
         const smallLetter = data.title.toLowerCase();
@@ -367,20 +318,22 @@ export const getSinglePost = (id, history) => dispatch => {
               category,
               BlogImgUrl,
               title,
-              bloggerID,
+              bloggerId,
               bloggerProfileImgUrl,
-              creatAt
+              creatAt,
+              name
             } = data;
             const id = doc.id;
 
             return {
               id,
               category,
-              bloggerID,
+              bloggerId,
               bloggerProfileImgUrl,
               creatAt: creatAt.seconds,
               title,
-              BlogImgUrl
+              BlogImgUrl,
+              name
             };
           });
 

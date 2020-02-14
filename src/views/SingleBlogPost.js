@@ -30,8 +30,7 @@ import {
 
 export class SingleBlogPost extends Component {
   componentDidMount() {
-    if (this.props.singleBlogPost === null) {
-      console.log("single is running ooo");
+    if (Object.keys(this.props.singleBlogPost).length === 0) {
       return this.props.getSinglePost(
         this.props.match.params.blogId,
         this.props.history
@@ -58,7 +57,8 @@ export class SingleBlogPost extends Component {
       bloggerID,
       bloggerProfileImgUrl,
       creatAt,
-      text
+      text,
+      name
     } = singleBlogPost;
     if (
       singleBlogPost === null ||
@@ -104,11 +104,11 @@ export class SingleBlogPost extends Component {
                 to={`/profile/${bloggerID}`}
                 className="card-post__author-avatar card-post__author-avatar--small"
                 style={{
-                  backgroundImage: { bloggerProfileImgUrl }
+                  backgroundImage: `url(${bloggerProfileImgUrl})`
                 }}
               />
 
-              <strong className="ml-2 text-muted"> Written by Anna Ken</strong>
+              <strong className="ml-2 text-muted"> Written by {name}</strong>
             </div>
             <Moment
               className="text-muted ml-auto"
@@ -149,9 +149,7 @@ export class SingleBlogPost extends Component {
             <Button
               onClick={this.shareButton.bind(
                 this,
-                `https://twitter.com/share?url[${
-                  this.props.match.url
-                }]&text=[${title}]&via[via]&hashtags=[hashtags]`
+                `https://twitter.com/share?url[${this.props.match.url}]&text=[${title}]&via[via]&hashtags=[hashtags]`
               )}
               color="info"
             >
@@ -161,9 +159,7 @@ export class SingleBlogPost extends Component {
             <Button
               onClick={this.shareButton.bind(
                 this,
-                `https://www.linkedin.com/shareArticle?url=[${
-                  this.props.match.url
-                }]&title=[${title}]`
+                `https://www.linkedin.com/shareArticle?url=[${this.props.match.url}]&title=[${title}]`
               )}
               color="dark"
             >
@@ -205,7 +201,4 @@ const mapStateToProps = state => ({
   relatedBlogs: selectRelatedBlogs(state)
 });
 
-export default connect(
-  mapStateToProps,
-  { getSinglePost }
-)(SingleBlogPost);
+export default connect(mapStateToProps, { getSinglePost })(SingleBlogPost);
